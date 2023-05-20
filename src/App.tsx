@@ -1,13 +1,14 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import GoogleMapComponent from "./components/GoogleMaps";
+import { Route, Routes } from "react-router-dom";
+import MapPage from "./pages/MapPage";
 
 function App() {
   return (
-    <>
-      <GoogleMapComponent />
-    </>
+    <Routes>
+      <Route path="/mapPage" element={<MapPage />} />
+    </Routes>
   );
 }
 
