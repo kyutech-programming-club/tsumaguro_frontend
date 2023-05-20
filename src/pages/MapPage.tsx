@@ -9,6 +9,7 @@ import Timer from "../components/Timer";
 import TimerComponent from "../components/Timer";
 import Ranking from "../components/Ranking";
 
+
 const MapPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
