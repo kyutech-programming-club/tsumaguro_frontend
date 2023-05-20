@@ -25,14 +25,16 @@ const GoogleMapComponent = (props: any) => {
 
   // 地図がクリックされた時
   const handleMapClick = (event: any) => {
-    const clickedLatLng = {
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng(),
-    };
-    setSelectedPos(clickedLatLng);
-    // setIsShown(true);
-    console.log(clickedLatLng);
-    props.onValueChange(clickedLatLng); // コールバック関数を呼び出して値を渡す
+    if (!props.isFinished) {
+      const clickedLatLng = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      };
+      setSelectedPos(clickedLatLng);
+      // setIsShown(true);
+      console.log(clickedLatLng);
+      props.onValueChange(clickedLatLng); // コールバック関数を呼び出して値を渡す
+    }
   };
 
   const infoWindowOptions = {

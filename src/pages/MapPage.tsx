@@ -7,6 +7,7 @@ import axios from "axios";
 import { findConfigFile } from "typescript";
 import Timer from "../components/Timer";
 import TimerComponent from "../components/Timer";
+import Ranking from "../components/Ranking";
 
 const MapPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -136,54 +137,59 @@ const MapPage = () => {
 
   //　GoogleMapComponentの地図がクリックされるたびに走る関数
   const handleValueFromChild = (clickedLatLng: any) => {
-    setIsShown(true);
-    setIsSelected(true);
-    setExpectedPos({
-      lat: clickedLatLng.lat,
-      lng: clickedLatLng.lng,
-    });
-    axios.get("http://api.open-notify.org/iss-now.json").then((response) => {
-      let position = response.data.iss_position;
-      setRealPos({
-        lat: Number(position.latitude),
-        lng: Number(position.longitude),
+    if (!isFinished) {
+      setIsShown(true);
+      setIsSelected(true);
+      setExpectedPos({
+        lat: clickedLatLng.lat,
+        lng: clickedLatLng.lng,
       });
-    });
+      axios.get("http://api.open-notify.org/iss-now.json").then((response) => {
+        let position = response.data.iss_position;
+        setRealPos({
+          lat: Number(position.latitude),
+          lng: Number(position.longitude),
+        });
+      });
+    }
   };
 
   return (
     <>
       <Header />
-      <Container>
-        <MapWrapper>
-          <GoogleMapComponent
-            pos={initialPos}
-            realPos={realPos}
-            isFinished={isFinished}
-            isShown={isShown}
-            onValueChange={handleValueFromChild}
-          />
-          {isPlaying ? (
-            ""
-          ) : (
-            <button onClick={startTimer}>
-              <Cover background={isCounting}>
-                {isCounting ? (
-                  <TimerComponent
-                    whenZero={startGame}
-                    isCounting={isCounting}
-                  />
-                ) : (
-                  <p>Click to Start</p>
-                )}
-              </Cover>
-            </button>
-          )}
-        </MapWrapper>
-        <TextWrapper>
-          {element({ isSelected, isPlaying, scoreShown, userScore })}
-        </TextWrapper>
-      </Container>
+      <ContentWrapper>
+        <Container>
+          <MapWrapper>
+            <GoogleMapComponent
+              pos={initialPos}
+              realPos={realPos}
+              isFinished={isFinished}
+              isShown={isShown}
+              onValueChange={handleValueFromChild}
+            />
+            {isPlaying ? (
+              ""
+            ) : (
+              <button onClick={startTimer}>
+                <Cover background={isCounting}>
+                  {isCounting ? (
+                    <TimerComponent
+                      whenZero={startGame}
+                      isCounting={isCounting}
+                    />
+                  ) : (
+                    <p>Click to Start</p>
+                  )}
+                </Cover>
+              </button>
+            )}
+          </MapWrapper>
+          <TextWrapper>
+            {element({ isSelected, isPlaying, scoreShown, userScore })}
+          </TextWrapper>
+        </Container>
+        <Ranking />
+      </ContentWrapper>
     </>
   );
 };
@@ -255,5 +261,9 @@ const Button = styled.button`
   padding: 10px;
   margin: 10px;
   font-size: 16px;
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
 `;
 export default MapPage;
