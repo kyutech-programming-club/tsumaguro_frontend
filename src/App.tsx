@@ -16,24 +16,22 @@
 // export default App;
 
 import React from "react";
-import "./App.css";
-import GoogleMapComponent from "./components/GoogleMapComponent";
-import MapPage from "./pages/MapPage";
-import { GoogleMap } from "@react-google-maps/api";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 import Mypage from "./Mypage";
 
-function App() {
-  console.log("test")
+const App = () => {
   return (
-      <Routes>
-        <Route path="/" element={<MapPage />} />
-        <Route path={`/register/`} element={<Register />} />
-        <Route path={`/login/`} element={<Login />} />
-        <Route path={`/mypage`} element={<Mypage />} />
-      </Routes>
+    <div className="container">
+      <BrowserRouter>
+        <Routes>
+          <Route path={`/register/`} element={<Register />} />
+          <Route path={`/login/`} element={<Login />} />
+          <Route path={`/`} element={<Mypage />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
 

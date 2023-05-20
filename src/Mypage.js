@@ -9,7 +9,6 @@ import {
   Navigate
 } from "react-router-dom";
 
-
 const Mypage = () => {
   const [user, setUser] = useState("");
 
@@ -37,6 +36,7 @@ const Mypage = () => {
             <Navigate to={`/login/`} />
           ) : (
             <>
+
               <h1>ゲームの説明</h1>
               <li>このゲームは国際宇宙ステーションの場所を当てるゲームだ！ 
         </li>
@@ -51,8 +51,10 @@ const Mypage = () => {
               </li>
               <li>
               100点目指して頑張ってね！</li>
-            <button onClick={() => navigate('')}>Game start！
-            </button>
+
+            <button onClick={() => navigate('')}>Game start！</button>
+
+
               <button  onClick={logout}>ログアウト</button>
             </>
           )}

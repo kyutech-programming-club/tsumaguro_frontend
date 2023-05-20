@@ -5,7 +5,6 @@ import GoogleMapComponent from "../components/GoogleMapComponent";
 import Header from "../components/Header";
 import axios from "axios";
 import { findConfigFile } from "typescript";
-import Ranking from '../components/Ranking'
 
 const MapPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -84,7 +83,7 @@ const MapPage = () => {
     });
     axios.get("http://api.open-notify.org/iss-now.json").then((response) => {
       let position = response.data.iss_position;
-      //   console.log(position);
+    //   console.log(position);
       setRealPos({
         lat: Number(position.latitude),
         lng: Number(position.longitude),
@@ -104,48 +103,45 @@ const MapPage = () => {
   return (
     <>
       <Header />
-      <ContentWrapper>
-        <Container>
-          <MapWrapper>
-            <GoogleMapComponent
-              pos={initialPos}
-              onValueChange={handleValueFromChild}
-            />
-          </MapWrapper>
+      <Container>
+        <MapWrapper>
+          <GoogleMapComponent
+            pos={initialPos}
+            onValueChange={handleValueFromChild}
+          />
+        </MapWrapper>
 
-          {isPlaying ? (
-            <>
-              <span>
-                スタート時のISSの座標は緯度{initialPos.lat}, 経度
-                {initialPos.lng}
-              </span>
-              <span>
-                あなたが選んだ座標は緯度{expectedPos.lat}, 経度
-                {expectedPos.lng}
-              </span>
-            </>
-          ) : (
-            <button onClick={startGame}>ゲームを始める</button>
-          )}
-          {/* {isPlaying ? (
-              <>
-                <span>
-                  スタート時のISSの座標は緯度{realPos.lat}, 経度
-                  {realPos.lng}
-                </span>
-                <span>
-                  あなたが選んだ座標は緯度{expectedPos.lat}, 経度
-                  {expectedPos.lng}
-                </span>
-              </>
-            ) : (
-              <button onClick={startGame}>ゲームを始める</button>
-            )} */}
+        {isPlaying ? (
+          <>
+            <span>
+              スタート時のISSの座標は緯度{initialPos.lat}, 経度
+              {initialPos.lng}
+            </span>
+            <span>
+              あなたが選んだ座標は緯度{expectedPos.lat}, 経度
+              {expectedPos.lng}
+            </span>
+          </>
+        ) : (
+          <button onClick={startGame}>ゲームを始める</button>
+        )}
+        {/* {isPlaying ? (
+          <>
+            <span>
+              スタート時のISSの座標は緯度{realPos.lat}, 経度
+              {realPos.lng}
+            </span>
+            <span>
+              あなたが選んだ座標は緯度{expectedPos.lat}, 経度
+              {expectedPos.lng}
+            </span>
+          </>
+        ) : (
+          <button onClick={startGame}>ゲームを始める</button>
+        )} */}
 
-          {isSelected ? <button onClick={finishGame}>決定する</button> : ""}
-        </Container>
-        <Ranking />
-      </ContentWrapper>
+        {isSelected ? <button onClick={finishGame}>決定する</button> : ""}
+      </Container>
     </>
   );
 };
@@ -163,9 +159,5 @@ const Container = styled.div`
   height: 60%;
   border-radius: 40px;
   background-color: green;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
 `;
 export default MapPage;
