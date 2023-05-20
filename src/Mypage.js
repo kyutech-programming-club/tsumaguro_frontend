@@ -9,7 +9,6 @@ import {
   Navigate
 } from "react-router-dom";
 
-import {Helmet} from 'react-helmet';
 
 const Mypage = () => {
   const [user, setUser] = useState("");
@@ -38,9 +37,6 @@ const Mypage = () => {
             <Navigate to={`/login/`} />
           ) : (
             <>
-             <Helmet>
-                <style>{'body { background-color: #CCFBDA; }'}</style>
-            </Helmet>
               <h1>ゲームの説明</h1>
               <li>このゲームは国際宇宙ステーションの場所を当てるゲームだ！ 
         </li>
