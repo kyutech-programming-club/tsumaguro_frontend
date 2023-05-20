@@ -26,7 +26,7 @@ const GoogleMapComponent = (props: any) => {
     console.log(clickedLatLng)
     props.onValueChange(clickedLatLng); // コールバック関数を呼び出して値を渡す
   };
-
+                                                               
   // const unko = {
   //   lat: 43.048225,
   //   lng: 141.49701,
