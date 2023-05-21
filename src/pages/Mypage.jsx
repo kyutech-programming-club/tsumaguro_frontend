@@ -3,7 +3,8 @@
 
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "./FirebaseConfig.js";
+import { auth } from "../FirebaseConfig.js";
+import Cookies from 'js-cookie'
 import {
   useNavigate,
   Navigate
@@ -25,7 +26,8 @@ const Mypage = () => {
 
   const logout = async () => {
     await signOut(auth);
-    navigate("/login/");
+    Cookies.remove('uid');
+    navigate("/login");
   }
 
   return (
@@ -33,7 +35,7 @@ const Mypage = () => {
       {!loading && (
         <>
           {!user ? (
-            <Navigate to={`/login/`} />
+            <Navigate to={`/login`} />
           ) : (
             <>
 
@@ -52,7 +54,7 @@ const Mypage = () => {
               <li>
               100点目指して頑張ってね！</li>
 
-            <button onClick={() => navigate('/mypage/')}>Game start！</button>
+            <button onClick={() => navigate('/mapPage/')}>Game start！</button>
 
 
               <button  onClick={logout}>ログアウト</button>

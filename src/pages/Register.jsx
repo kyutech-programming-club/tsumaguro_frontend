@@ -3,13 +3,14 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged
 } from "firebase/auth";
-import { auth } from "./FirebaseConfig.js";
-/* 「Link」をimport↓ */
+import { auth } from "../FirebaseConfig.js";
 import { Navigate, Link } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 const Register = () => {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [user, setUser] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,13 +20,14 @@ const Register = () => {
         auth,
         registerEmail,
         registerPassword
-      );
+      ).then((response)=> {
+        const uid = response.user.uid;
+        Cookies.set('uid', uid);
+      })
     } catch(error) {
       alert("正しく入力してください");
     }
   };
-
-  const [user, setUser] = useState("");
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {

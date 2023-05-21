@@ -3,9 +3,10 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged
 } from "firebase/auth";
-import { auth } from "./FirebaseConfig.js";
+import { auth } from "../FirebaseConfig.js";
 /* 「Link」をimport↓ */
 import { Navigate, Link } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 const Login = () => {
   const [loginEmail, setLoginEmail] = useState("");
@@ -19,7 +20,10 @@ const Login = () => {
         auth,
         loginEmail,
         loginPassword
-      );
+      ).then((response) => {
+        const uid = response.user.uid
+        Cookies.set('uid', uid)
+      })
     } catch(error) {
       alert("メールアドレスまたはパスワードが間違っています");
     }
