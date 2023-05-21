@@ -52,7 +52,7 @@ const Mypage = () => {
               <li>
               100点目指して頑張ってね！</li>
 
-            <button onClick={() => navigate('')}>Game start！</button>
+            <button onClick={() => navigate('/mypage/')}>Game start！</button>
 
 
               <button  onClick={logout}>ログアウト</button>
