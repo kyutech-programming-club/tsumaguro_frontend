@@ -3,12 +3,12 @@
 
 import React, { useState, useEffect } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "./FirebaseConfig.js";
+import { auth } from "../FirebaseConfig.js";
+import Cookies from 'js-cookie'
 import {
   useNavigate,
   Navigate
 } from "react-router-dom";
-
 
 const Mypage = () => {
   const [user, setUser] = useState("");
@@ -26,7 +26,8 @@ const Mypage = () => {
 
   const logout = async () => {
     await signOut(auth);
-    navigate("/login/");
+    Cookies.remove('uid');
+    navigate("/login");
   }
 
   return (
@@ -34,9 +35,10 @@ const Mypage = () => {
       {!loading && (
         <>
           {!user ? (
-            <Navigate to={`/login/`} />
+            <Navigate to={`/login`} />
           ) : (
             <>
+
               <h1>ゲームの説明</h1>
               <li>このゲームは国際宇宙ステーションの場所を当てるゲームだ！ 
         </li>
@@ -51,8 +53,10 @@ const Mypage = () => {
               </li>
               <li>
               100点目指して頑張ってね！</li>
-            <button onClick={() => navigate('')}>Game start！
-            </button>
+
+            <button onClick={() => navigate('/mapPage/')}>Game start！</button>
+
+
               <button  onClick={logout}>ログアウト</button>
             </>
           )}

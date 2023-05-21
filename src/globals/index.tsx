@@ -18,7 +18,7 @@ export const Column = styled.div`
 export const H1 = styled.h1`
   color: #ffffff;
   letter-spacing: 3px;
-  text-shadow: 1px 1px 6px #000000
+  text-shadow: 1px 1px 6px #000000;
 `;
 
 export const Button = styled.button`
@@ -33,7 +33,7 @@ export const Button = styled.button`
 `;
 
 export const Container = styled.div`
-  padding: 64px;
+  padding: 24px;
   width: 60%;
   justify-content: center;
   align-items: center;
@@ -72,7 +72,7 @@ export const Cover = styled.div<{ background: Boolean }>`
 `;
 
 export const Th = styled.th`
-  background-color: green;
+  background-color: #58dd58;
   height: 10px;
 `;
 
@@ -83,6 +83,7 @@ export const Tr = styled.tr`
 `;
 
 export const Td = styled.td`
+  text-align: center;
   justify-content: center;
   align-items: center;
 `;
@@ -91,6 +92,11 @@ export const Table = styled.table`
   height: fit-content;
   width: 20vw;
   margin: 0 24px;
-  background-color: gray;
+  background-color: #ffffff;
+  border: solid 1px black;
 `;
-export const CountTxt = styled.p``;
+
+export const H3 = styled.h3`
+  letter-spacing: 3px;
+  font-size: 40px;
+`;

@@ -5,14 +5,16 @@ import Header from "../components/Header";
 import axios from "axios";
 import TimerComponent from "../components/Timer";
 import Ranking from "../components/Ranking";
+import Cookies from "js-cookie";
 import "../index.css";
+import background from "../images/360_F_90790439_fAn3o4GZ14mgtCjQiSCh8DjBcEmKDpCj.jpg";
 import {
   Button,
   Column,
   Container,
-  CountTxt,
   Cover,
   H1,
+  H3,
   MapWrapper,
   Row,
   TextWrapper,
@@ -51,20 +53,23 @@ const MapPage = () => {
     } else if (props.isSelected) {
       return (
         <Column>
-          <span>
-            あなたが選んだ座標は緯度{expectedPos.lat}, 経度
-            {expectedPos.lng}
-          </span>
+          <Row>
+            <H3>あなたが選んだ座標は</H3>
+            <Column>
+              <H3>緯度{expectedPos.lat}</H3>
+              <H3>経度{expectedPos.lng}</H3>
+            </Column>
+          </Row>
           <Button onClick={fetchScore}>決定する</Button>
         </Column>
       );
     } else if (props.isPlaying) {
       return (
         <Row>
-          <span>
+          <H3>
             スタート時のISSの座標は緯度{initialPos.lat}, 経度
             {initialPos.lng}
-          </span>
+          </H3>
         </Row>
       );
     } else if (props.scoreShown) {
@@ -90,9 +95,10 @@ const MapPage = () => {
 
   // スコアを取得
   const fetchScore = async (clickedLatLng: any) => {
+    const uid = Cookies.get("uid");
     await axios
-      .post("https://dc03-153-137-36-250.ngrok-free.app/userInput", {
-        user_id: "aaaa",
+      .post("http://127.0.0.1:5013/userInput", {
+        user_id: uid,
         user_latitude: expectedPos.lat,
         user_longitude: expectedPos.lng,
         answer_latitude: realPos.lat,
@@ -162,7 +168,7 @@ const MapPage = () => {
   };
 
   return (
-    <>
+    <div style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
       <Header />
       <ContentWrapper>
         <Container>
@@ -198,7 +204,7 @@ const MapPage = () => {
         </Container>
         <Ranking />
       </ContentWrapper>
-    </>
+    </div>
   );
 };
 
@@ -209,4 +215,12 @@ const ContentWrapper = styled.div`
   flex-direction: row;
   padding: 64px 64px;
 `;
+
+const BackImage = styled.div`
+  background-image: url(background);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
+
 export default MapPage;
