@@ -1,7 +1,14 @@
 import React from "react";
+import TableComponent from "./Table";
+import { Column } from "../globals";
 
 const Ranking = () => {
-  return <div>this is ranking</div>;
+  return (
+    <Column>
+      <p>ランキング</p>
+      <TableComponent />
+    </Column>
+  );
 };
 
 export default Ranking;

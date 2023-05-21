@@ -26,7 +26,6 @@ import Login from "./Login";
 import Mypage from "./Mypage";
 
 function App() {
-  console.log("test")
   return (
       <Routes>
         <Route path="/" element={<MapPage />} />

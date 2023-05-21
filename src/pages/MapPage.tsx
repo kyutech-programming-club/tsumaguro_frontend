@@ -1,13 +1,22 @@
-import { GoogleMap } from "@react-google-maps/api";
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import GoogleMapComponent from "../components/GoogleMapComponent";
 import Header from "../components/Header";
 import axios from "axios";
-import { findConfigFile } from "typescript";
-import Timer from "../components/Timer";
 import TimerComponent from "../components/Timer";
 import Ranking from "../components/Ranking";
+import "../index.css";
+import {
+  Button,
+  Column,
+  Container,
+  CountTxt,
+  Cover,
+  H1,
+  MapWrapper,
+  Row,
+  TextWrapper,
+} from "../globals";
 
 const MapPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -76,25 +85,11 @@ const MapPage = () => {
 
   //　ゲームを始める
   const startGame = (value: any) => {
-    // axios.get("http://api.open-notify.org/iss-now.json").then((response) => {
-    //   let position = response.data.iss_position;
-    //   setInitialPos({
-    //     lat: Number(position.latitude),
-    //     lng: Number(position.longitude),
-    //   });
-    //   setRealPos({
-    //     lat: Number(position.latitude),
-    //     lng: Number(position.longitude),
-    //   });
-    // });
     setIsPlaying(true);
   };
 
   // スコアを取得
   const fetchScore = async (clickedLatLng: any) => {
-    // setIsPlaying(false);
-    // setIsSelected(false);
-
     await axios
       .post("https://dc03-153-137-36-250.ngrok-free.app/userInput", {
         user_id: "aaaa",
@@ -125,6 +120,18 @@ const MapPage = () => {
 
   // タイマーをスタート
   const startTimer = () => {
+    // axios.get("http://api.open-notify.org/iss-now.json").then((response) => {
+    //   let position = response.data.iss_position;
+    //   setInitialPos({
+    //     lat: Number(position.latitude),
+    //     lng: Number(position.longitude),
+    //   });
+    // });
+    setIsCounting(true);
+  };
+
+  //  初回タイマーをスタート時のみ実行
+  useEffect(() => {
     axios.get("http://api.open-notify.org/iss-now.json").then((response) => {
       let position = response.data.iss_position;
       setInitialPos({
@@ -132,8 +139,8 @@ const MapPage = () => {
         lng: Number(position.longitude),
       });
     });
-    setIsCounting(true);
-  };
+    console.log("test");
+  }, [isCounting]);
 
   //　GoogleMapComponentの地図がクリックされるたびに走る関数
   const handleValueFromChild = (clickedLatLng: any) => {
@@ -167,10 +174,11 @@ const MapPage = () => {
               isShown={isShown}
               onValueChange={handleValueFromChild}
             />
+
             {isPlaying ? (
               ""
             ) : (
-              <button onClick={startTimer}>
+              <button className="cover-button" onClick={startTimer}>
                 <Cover background={isCounting}>
                   {isCounting ? (
                     <TimerComponent
@@ -194,76 +202,11 @@ const MapPage = () => {
   );
 };
 
-const MapWrapper = styled.div`
-  position: relative;
-  margin: 64px;
-  overflow: hidden;
-  width: 80%;
-  text-align: center;
-  border: solid 1px #58dd58;
-  border-radius: 16px;
-`;
-
-const Container = styled.div`
-  padding: 24px;
-  width: 60%;
+const ContentWrapper = styled.div`
   justify-content: center;
   align-items: center;
-  height: fit-content;
-  border-radius: 40px;
-  background-color: #58dd58;
-`;
-
-const TextWrapper = styled.div`
-  text-align: center;
-`;
-
-const Cover = styled.div<{ background: Boolean }>`
-  display: flex;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  width: 100%;
-  height: 100%;
-  background-color: ${(props) =>
-    props.background ? "rgba(255, 255, 255, 0.658)" : "white"};
-  font-size: 10vh;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Row = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const H1 = styled.h1`
-  color: red;
-  text-shadow: 1px 1px 3px #d00;
-`;
-
-const Button = styled.button`
-  justify-self: center;
-  border: none;
-  background-color: #0d6efd;
-  color: #fff;
-  width: 40%;
-  padding: 10px;
-  margin: 10px;
-  font-size: 16px;
-`;
-
-const ContentWrapper = styled.div`
-  display: flex;
+  padding: 64px 64px;
 `;
 export default MapPage;
